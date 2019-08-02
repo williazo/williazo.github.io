@@ -3,5 +3,5 @@ layout: default
 title: resume
 ---
 ## Resume
-{{ site.url }}{{ post.url }}/pdf_files/resume.pdf
-
+ <iframe src="https://williazo.github.io/pdf_files/resume.pdf" width="100%" height="500px">
+ </iframe>
