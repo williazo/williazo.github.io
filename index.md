@@ -7,5 +7,4 @@ layout: default
 
 PLEASE PARDON MY APPEARNCE, UNDER DEVELOPMENT. 
 
-FOR UPDATED JOB HISTORY SEE MY PROFILE AT <a href = "https://www.linkedin.com/in/williazo/">LINKEDIN/WILLIAZO</a>.
 
