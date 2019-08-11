@@ -10,10 +10,10 @@ title: aboutme
 - Trying new recipes
 
 ### Travels
-Recent Trips
+#### Recent Trips
 - Denver, Colorado (July 2019, [JSM Conference](https://ww2.amstat.org/meetings/jsm/2019/))
 - Portland, Oregon (June 2019, [WNAR Conference](http://www.wnar.org/Past-Meetings))
 
-Upcoming Trips
+#### Upcoming Trips
 - Boston, Massachusetts (August, 2019)
 - Paris/Rome (September, 2019)
