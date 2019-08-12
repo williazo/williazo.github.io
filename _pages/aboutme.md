@@ -1,6 +1,6 @@
 ---
-layout: default
 title: aboutme
+permalink: /aboutme/
 ---
 ## About Me
 ### Hobbies

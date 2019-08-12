@@ -1,3 +1,71 @@
-url: "http://williazo.github.io"
-name: Justin Williams
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Justin Williams | Personal Website
+email: williazo@ucla.edu
+description: >- # this means to ignore newlines until "baseurl:"
+  "A personal webpage for displaying information on Justin Williams current Ph.D. candidate in the Department of Biostatistics at UCLA.""
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://williazo.github.io"
+github_username:  williazo
+name: "Justin Williams"
+
+include: ["_pages"]
+
+author:
+  name : "Justin Williams"
+  avatar: "/images/personal_photo.jpg"
+  bio: "Current Ph.D. candidate at UCLA in Department of Biostatistics"
+  location: "Los Angeles, CA"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/williazo"
+    - label: LinkedIn
+      icon: "fab fa-linkedin"
+      url: https://www.linkedin.com/in/williazo/
+    - label: "Email"
+      icon: "fas fa-envelope"
+
+
+# Build settings
 markdown: kramdown
+theme: minimal-mistakes-jekyll
+minimal_mistakes_skin: "mint"
+plugins:
+  - jekyll-feed
+
+loacale: "en-US"
+
+defaults:
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

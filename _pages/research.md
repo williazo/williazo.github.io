@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: page
 title: research
+permalink: /research/
 ---
 ## Research Interests
 

@@ -1,0 +1,9 @@
+main:
+  - title: "About Me"
+    url: /aboutme
+  - title: "Research/Software"
+    url: /research
+  - title: "CV"
+    url: /cv
+  - title: "Resume"
+    url: /resume
