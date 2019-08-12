@@ -22,7 +22,8 @@ url: "https://williazo.github.io"
 github_username:  williazo
 name: "Justin Williams"
 
-include: ["_pages"]
+include:
+  - _pages
 
 author:
   name : "Justin Williams"
@@ -44,7 +45,13 @@ author:
 markdown: kramdown
 remote_theme: "mmistakes/minimal-mistakes@4.16.5"
 minimal_mistakes_skin: "mint"
+# Plugins (previously gems:)
 plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
   - jekyll-include-cache
 
 loacale: "en-US"
