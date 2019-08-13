@@ -1,5 +1,5 @@
 ---
+title: "Curriculum Vitae"
 permalink: /cv/
 ---
-## Curriculum Vitae
- <iframe src="https://williazo.github.io/pdf_files/cv.pdf" width="100%" height="500px"></iframe>
+ <iframe src="https://williazo.github.io/pdf_files/cv.pdf" width="100%" height="800em"></iframe>
