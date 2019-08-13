@@ -1,13 +1,14 @@
 ---
+title: "Research/Software"
 permalink: /research/
 ---
-## Research Interests
 
+## Current Research
 + Causal Inference
 	+ Propensity Score Methods
 	+ Spatial Interference
 + Longitudinal Methods
-+
++ Maximum Likelihood Estimation for Truncated Normal Distribution with Censored Data
 
 ## Original R Packages
 [tcensReg](https://github.com/williazo/tcensReg)
