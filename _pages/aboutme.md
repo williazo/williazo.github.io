@@ -1,7 +1,7 @@
 ---
+title: "About Me"
 permalink: /aboutme/
 ---
-## About Me
 ### Hobbies
 - Currently learning to rock climb
 - Avid follower of Major League Baseball, particularly the Colorado Rockies
