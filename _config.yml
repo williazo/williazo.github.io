@@ -19,8 +19,6 @@ description: >- # this means to ignore newlines until "baseurl:"
   "A personal webpage for displaying information on Justin Williams current Ph.D. candidate in the Department of Biostatistics at UCLA.""
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://williazo.github.io"
-github_username:  williazo
-name: "Justin Williams"
 
 include:
   - _pages
@@ -28,17 +26,20 @@ include:
 author:
   name : "Justin Williams"
   avatar: "/images/personal_photo.jpg"
-  bio: "Current Ph.D. candidate at UCLA in Department of Biostatistics"
+  bio: "Ph.D. candidate<br/>
+  UCLA, Department of Biostatistics"
   location: "Los Angeles, CA"
   links:
+    - label: "Email"
+      icon: "fas fa-envelope"
+      url:  mailto:williazo@ucla.edu
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/williazo"
     - label: LinkedIn
       icon: "fab fa-linkedin"
       url: https://www.linkedin.com/in/williazo/
-    - label: "Email"
-      icon: "fas fa-envelope"
+
 
 
 # Build settings
@@ -68,11 +69,11 @@ defaults:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
