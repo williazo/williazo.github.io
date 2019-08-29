@@ -11,6 +11,11 @@ permalink: /research/
 + Maximum Likelihood Estimation for Truncated Normal Distribution with Censored Data
 
 ## Original R Packages
+[microbiomeDASim](https://github.com/williazo/microbiomeDASim)
+- co-authored with Héctor Corrada Bravo, Jennifer Tom, and Joseph Paulson while working at Genentech, Inc.
+- simulate longitudinal differential abundance for microbiome data
+- under review for inclusion in [BioConductor](https://bioconductor.org)
+
 [tcensReg](https://github.com/williazo/tcensReg)
 - calculate maximum likelihood estimates from truncated normal distribution with censored observations
 
