@@ -14,5 +14,5 @@ permalink: /aboutme/
 - Portland, Oregon (June 2019, [WNAR Conference](http://www.wnar.org/Past-Meetings))
 
 #### Upcoming Trips
-- Boston, Massachusetts (August, 2019)
-- Paris/Rome (September, 2019)
+- Vancouver/Victoria (September, 2019)
+- Statistical Horizons Short Course: "Matching and Weighting for Causal Inference with R" (November, 2019)
