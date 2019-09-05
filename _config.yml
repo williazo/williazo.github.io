@@ -66,13 +66,6 @@ defaults:
       layout: single
       author_profile: true
 
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      read_time: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
