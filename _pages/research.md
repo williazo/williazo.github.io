@@ -14,7 +14,7 @@ permalink: /research/
 [microbiomeDASim](https://github.com/williazo/microbiomeDASim)
 - co-authored with Héctor Corrada Bravo, Jennifer Tom, and Joseph Paulson while working at Genentech, Inc.
 - simulate longitudinal differential abundance for microbiome data
-- under review for inclusion in [BioConductor](https://bioconductor.org)
+- available at [BioConductor/microbiomeDASim](https://bioconductor.org/packages/microbiomeDASim)
 
 [tcensReg](https://github.com/williazo/tcensReg)
 - calculate maximum likelihood estimates from truncated normal distribution with censored observations
@@ -28,6 +28,8 @@ permalink: /research/
 - sabermetric exploratory analysis
 
 ## Recent Publications
+
+1. **Williams, J.**, Bravo H.C., Tom J., and Paulson J.N. (2019). *microbiomeDASim*: Simulating longitudinal differential abundance for microbiome data [version 1; peer review: awaiting peer review]. F1000 Research, 8:1769. doi:[10.12688/f1000research.20660.1](http://doi.org/10.12688/f1000research.20660.1)
 
 1. Dean, M., **Williams, J.**, Kasari, C. and Orlich, O. (Pre-Publish). Adolescents with autism spectrum disorder and social skills groups at school: A randomized trial comparing intervention environment and peer composition. School Psychology Review.
 
