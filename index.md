@@ -2,6 +2,10 @@
 layout: home
 author_profile: true
 title: Hello! Welcome to My Personal Webpage
+header:
+  image: /assets/images/IMG_6126.jpg
+  image_description: "View from San Jacinto Mt."
+  og_image: /assets/images/san_jacinto.png
 ---
 I am currently a 6th year Ph.D. candidate at the University of California, Los Angeles (UCLA) in the [Department of Biostatistics](https://www.biostat.ucla.edu). I have a wide variety of experiences interning in industry along with extensive research work within the field of Autism Spectrum Disorder.
 
