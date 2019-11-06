@@ -72,8 +72,6 @@ analytics:
     tracking_id: "UA-147241561-1"
     anonymize_ip: false # default
 
-google_site_verification: "google-site-verification=gxlz8pA5Au8s4a0HDtOCGEOPtU2jIbrNohqCfvLm5GU"
-
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
