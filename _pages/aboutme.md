@@ -13,9 +13,10 @@ permalink: /aboutme/
 #### Recent Conferences/Academic Trips
 - Denver, Colorado (July 2019, [JSM Conference](https://ww2.amstat.org/meetings/jsm/2019/))
 - Portland, Oregon (June 2019, [WNAR Conference](http://www.wnar.org/Past-Meetings))
+- Philadelphia, Pennsylvania (November 2019, Statistical Horizons Short Course: "Matching and Weighting for Causal Inference with R")
 
 #### Upcoming Trips
-- Philadelphia, Pennsylvania (November 2019, Statistical Horizons Short Course: "Matching and Weighting for Causal Inference with R")
+- San Diego, California (January 2020, [ICHPS Conference](https://ww2.amstat.org/meetings/ichps/2020/))
 
 ### Personal Trips
 - Vancouver/Victoria (September, 2019)
