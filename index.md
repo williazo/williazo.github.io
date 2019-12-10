@@ -3,9 +3,10 @@ layout: single
 author_profile: true
 title: A View from the Clouds
 header:
-  overlay_image: /assets/images/IMG_6126.jpg
-  caption: "Mt. San Jacinto<br>Route: Cactus to Clouds <br>Summited: 10/12/19"
-  image_description: "View from Mt. San Jacinto"
+  overlay_image: /assets/images/san_jacinto_snow.jpg
+  overlay_filter: 0.2 #opacity
+  caption: "Mt. San Jacinto<br>Route: Marion Mountain <br>Date: 12/8/19"
+  image_description: "Snowshoeing San Jacinto"
 ---
 I am currently a 4th year Ph.D. candidate at the University of California, Los Angeles (UCLA) in the [Department of Biostatistics](https://www.biostat.ucla.edu). I have a wide variety of experiences interning in industry along with extensive research work within the field of Autism Spectrum Disorder.
 
