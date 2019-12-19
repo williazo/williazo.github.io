@@ -12,12 +12,18 @@ permalink: /research/
 
 ## Original R Packages
 [microbiomeDASim](https://github.com/williazo/microbiomeDASim)
+[![Bioc build](http://bioconductor.org/shields/build/release/bioc/microbiomeDASim.svg)](http://bioconductor.org/checkResults/release/bioc-LATEST/microbiomeDASim/)
+[![Bioc time](http://bioconductor.org/shields/years-in-bioc/microbiomeDASim.svg)](https://bioconductor.org/packages/microbiomeDASim)
+[![Bioc downloads](http://bioconductor.org/shields/downloads/release/microbiomeDASim.svg)](http://bioconductor.org/packages/stats/bioc/microbiomeDASim/)
 - co-authored with Héctor Corrada Bravo, Jennifer Tom, and Joseph Paulson while working at Genentech, Inc.
 - simulate longitudinal differential abundance for microbiome data
 - available at [BioConductor/microbiomeDASim](https://bioconductor.org/packages/microbiomeDASim)
 
 [tcensReg](https://github.com/williazo/tcensReg)
+[![CRAN version](http://www.r-pkg.org/badges/version/tcensReg)](http://www.r-pkg.org/pkg/tcensReg)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/tcensReg)](http://www.r-pkg.org/pkg/tcensReg)
 - calculate maximum likelihood estimates from truncated normal distribution with censored observations
+- now available on CRAN repository for stable release while GitHub contains development version
 
 [ggplot.spaghetti](https://github.com/williazo/ggplot.spaghetti)
 - visualize longitudinal time trends
