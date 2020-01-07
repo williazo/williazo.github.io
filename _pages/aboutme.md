@@ -4,7 +4,7 @@ permalink: /aboutme/
 ---
 ### Hobbies
 - Currently learning to rock climb
-- Avid follower of Major League Baseball, particularly the Colorado Rockies
+- Avid follower of Major League Baseball
 	- Frequent reader of [FanGraphs](http://www.fangraphs.com) to learn about the role of data and analysis in baseball.
 - Recreational softball player
 - Trying new recipes
