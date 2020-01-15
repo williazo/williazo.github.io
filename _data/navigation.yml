@@ -7,3 +7,5 @@ main:
     url: /cv
   - title: "Resume"
     url: /resume
+  - title: "Blog Posts"
+    url: /year-archive/
