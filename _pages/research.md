@@ -37,7 +37,7 @@ permalink: /research/
 
 1. **Williams, J.R.**, Kim, H.W. and Crespi, C.M. (2019). Modeling Variables with a Detection Limit using a Truncated Normal Distribution with Censoring. arXiv preprint [arXiv:1911.11221](https://arxiv.org/abs/1911.11221).
 
-2. **Williams, J.**, Bravo H.C., Tom J., and Paulson J.N. (2019). *microbiomeDASim*: Simulating longitudinal differential abundance for microbiome data [version 1; peer review: awaiting peer review]. F1000 Research, 8:1769. doi:[10.12688/f1000research.20660.1](http://doi.org/10.12688/f1000research.20660.1)
+2. **Williams, J.**, Bravo H.C., Tom J., and Paulson J.N. *microbiomeDASim*: Simulating longitudinal differential abundance for microbiome data [version 2; peer review: 2 approved]. F1000Research 2020, 8:1769. doi:[10.12688/f1000research.20660.2](http://doi.org/10.12688/f1000research.20660.2)
 
 3. Dean, M., **Williams, J.**, Kasari, C. and Orlich, O. (Pre-Publish). Adolescents with autism spectrum disorder and social skills groups at school: A randomized trial comparing intervention environment and peer composition. School Psychology Review.
 
