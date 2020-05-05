@@ -39,7 +39,7 @@ permalink: /research/
 
 2. **Williams, J.**, Bravo H.C., Tom J., and Paulson J.N. *microbiomeDASim*: Simulating longitudinal differential abundance for microbiome data [version 2; peer review: 2 approved]. F1000Research 2020, 8:1769. doi:[10.12688/f1000research.20660.2](http://doi.org/10.12688/f1000research.20660.2)
 
-3. Dean, M., **Williams, J.**, Kasari, C. and Orlich, O. (Pre-Publish). Adolescents with autism spectrum disorder and social skills groups at school: A randomized trial comparing intervention environment and peer composition. School Psychology Review.
+3. Dean, M., **Williams, J.**, Kasari, C. and Orlich, O. (2020). Adolescents with autism spectrum disorder and social skills groups at school: A randomized trial comparing intervention environment and peer composition. School Psychology Review. doi:[10.1080/2372966X.2020.1716636](https://www.tandfonline.com/doi/full/10.1080/2372966X.2020.1716636)
 
 4. Gulsrud, A., Carr, T., **Williams, J.**, Panganiban, J., Jones, F., Kimbrough, J., Shih, W., and Kasari, C. (2019), Developmental screening and early intervention in a childcare setting for young children at risk for autism and other developmental delays: A feasibility trial. Autism Research, 12:1423-1433. doi:[10.1002/aur.2160](https://doi.org/10.1002/aur.2160)
 
