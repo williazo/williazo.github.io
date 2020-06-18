@@ -14,8 +14,9 @@ This website contains information about my personal, professional and academic l
 
 + Discover more about my personal life in the [About Me](https://williazo.github.io/aboutme) section such as some of my favorite hobbies and recent travels
 + Learn about my current research, software development, and publications that I have worked on under the [Research/Software/Publications](https://williazo.github.io/research) tab
-+ For a detailed history of my academic and job experience see my curriculum vitae at [CV](https://williazo.github.io/cv)
-+ Alternatively for an abridged version with only the most recent accomplishments see my [Resume](https://williazo.github.io/resume)
-+ Discover my opinions and experiences on topics such as cooking, statistical theory, and climbing in my [Blog Posts](https://williazo.github.io/year-archive)
++ For a detailed history of my academic and job experience see my curriculum vitae at [CV](cv)
++ Alternatively for an abridged version with only the most recent accomplishments see my [Resume](resume)
++ Discover my opinions and experiences on topics such as programming, and climbing in my [Blog Posts](year-archive)
+  + My latest post is available [here](_posts/2020-06-18-vscode-intro-for-pyton.md)
 
 For any questions or to contact please reach out via Email, GitHub or LinkedIn with links to the left.
