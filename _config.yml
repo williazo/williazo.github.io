@@ -42,9 +42,12 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: https://github.com/williazo
-    - label: LinkedIn
+    - label: "LinkedIn"
       icon: "fab fa-linkedin"
       url: https://www.linkedin.com/in/williazo/
+    - label: "ORCID"
+      icon: "fab fa-orcid"
+      url: https://orcid.org/0000-0002-5045-2764
 
 
 # Outputting
