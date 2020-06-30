@@ -153,6 +153,6 @@ In conclusion to this post, I would like to give users my two-cents about which 
 
 For those interested, the complete R code used to generate the images and data is downloadable [here]({{ "/assets/code/2020-06-11-plotly-ggplot.R" | relative_url }})
 
-[^1]: For those interested the following is a link to the state of California COVID-19 dashboard to track cases [here](https://public.tableau.com/views/COVID-19PublicDashboard/Covid-19Public?:embed=y&:display_count=no&:showVizHome=no).
+[^1]: For those interested the following is a link to the state of California COVID-19 dashboard to track cases [here](https://covid19.ca.gov/data-and-tools/).
 [^2]: Note that this data is pulled from [baseball-reference.com](https://www.baseball-reference.com) team home pages.
 [^3]: Since `plotly` creates .html files these can be included in local presentations only by default but can be hosted on web otherwise to share globally, e.g., on GitHub repository.
