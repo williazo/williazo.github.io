@@ -23,6 +23,10 @@ jobs:
   jekyll:
     runs-on: ubuntu-latest
     steps:
+    - name: Google authorization
+      with:
+        GTAG_SECRET: ${{ secrets.GTAG_SECRET }}
+
     - uses: actions/checkout@v2
 
     # Use GitHub Actions' cache to shorten build times and decrease load on servers
@@ -37,6 +41,4 @@ jobs:
     - uses:  helaili/jekyll-action@2.0.3
       env:
         JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
-      with:
-        GTAG_SECRET: ${{ secrets.GTAG_SECRET }}
     
