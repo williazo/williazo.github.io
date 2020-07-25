@@ -18,3 +18,23 @@ jobs:
         docker run \
         -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
         jekyll/builder:latest /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --future"
+
+  
+  jekyll:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    # Use GitHub Actions' cache to shorten build times and decrease load on servers
+    - uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    # Standard usage
+    - uses:  helaili/jekyll-action@2.0.3
+      env:
+        GTAG_SECRET: ${{ secrets.GTAG_SECRET }}
+    
