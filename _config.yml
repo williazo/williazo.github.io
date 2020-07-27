@@ -79,9 +79,9 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      share: false
+      share: true
       comments: false
-      related: false
+      related: true
   # _pages
   - scope:
       path: "_pages"
@@ -89,10 +89,7 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
-      share: true
-      comments: true
-      related: true
+      read_time: false
 
 # Outputting
 # permalink: /:categories/:title/

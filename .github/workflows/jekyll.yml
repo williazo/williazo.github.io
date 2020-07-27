@@ -20,22 +20,22 @@ jobs:
         jekyll/builder:latest /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --future"
 
   
-  jekyll:
-    runs-on: ubuntu-latest
-    steps:
+  # jekyll:
+  #   runs-on: ubuntu-latest
+  #   steps:
 
-    - uses: actions/checkout@v2
+  #   - uses: actions/checkout@v2
 
-    # Use GitHub Actions' cache to shorten build times and decrease load on servers
-    - uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
+  #   # Use GitHub Actions' cache to shorten build times and decrease load on servers
+  #   - uses: actions/cache@v1
+  #     with:
+  #       path: vendor/bundle
+  #       key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+  #       restore-keys: |
+  #         ${{ runner.os }}-gems-
 
-    # Standard usage
-    - uses:  helaili/jekyll-action@2.0.3
-      env:
-        JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
+  #   # Standard usage
+  #   - uses:  helaili/jekyll-action@2.0.3
+  #     env:
+  #       JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
     
