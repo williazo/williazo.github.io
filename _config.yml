@@ -100,10 +100,9 @@ timezone: America/Los_Angeles # https://en.wikipedia.org/wiki/List_of_tz_databas
 analytics:
   provider: "google-gtag"
   google:
-    tracking_id: GTAG_SECRET
+    tracking_id: "UA-147241561-1"
     anonymize_ip: false # default
 
-google_site_verification: ${{ secrets.GSITE_SECRET }}
 
 # Archives
 #  Type
