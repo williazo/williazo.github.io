@@ -3,7 +3,7 @@ title: "Manuscript Resources"
 permalink: /resources/
 ---
 
-## Causal inference with multiple simultaneous continuous exposures via the multivariate generalized propensity score
+## Causal inference for multiple continuous exposures via the multivariate generalized propensity score
 
 - Under production
 
