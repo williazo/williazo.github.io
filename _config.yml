@@ -33,7 +33,9 @@ author:
   name : "Justin Williams"
   avatar: "/assets/images/personal_photo.jpg"
   bio: "Ph.D. candidate<br/>
-  UCLA, Department of Biostatistics"
+  UCLA, Department of Biostatistics<br/> <br/>
+  Quantitative Analyst<br/>
+  Los Angeles Dodgers"
   location: "Los Angeles, CA"
   links:
     - label: "Email"
