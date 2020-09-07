@@ -5,7 +5,8 @@ permalink: /resources/
 
 ## Causal inference for multiple continuous exposures via the multivariate generalized propensity score
 
-- Under production
+- Under review for *Journal of Causal Inference*
+- Available pre-print at [arXiv:2008.13767](https://arxiv.org/abs/2008.13767)
 
 ### Multivariate Dose-Response Surface
 
