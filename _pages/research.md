@@ -6,12 +6,21 @@ permalink: /research/
 ## Current Research
 
 - Causal Inference
-	- Propensity Score Methods
-	- Multivariate Continuous Exposure
+  - Propensity Score Methods
+    - Multivariate Continuous Exposure
 - Longitudinal Methods
 - Maximum Likelihood Estimation with Censored Data
 
 ## Original R Packages
+
+[mvGPS](https://github.com/williazo/mvGPS)
+<!-- begin badges -->
+[![Build
+Status](https://travis-ci.org/williazo/mvGPS.svg?branch=master)](https://travis-ci.org/williazo/mvGPS)
+[![codecov](https://codecov.io/gh/williazo/mvGPS/branch/master/graph/badge.svg)](https://codecov.io/gh/williazo/mvGPS)
+<!-- end badges -->
+- generate multivariate generalized propensity scores and weights
+- assess covariate balance, define estimable regions using convex hull, and implement other common univariate methods
 
 [microbiomeDASim](https://github.com/williazo/microbiomeDASim)
 [![Bioc build](http://bioconductor.org/shields/build/release/bioc/microbiomeDASim.svg)](http://bioconductor.org/checkResults/release/bioc-LATEST/microbiomeDASim/)
@@ -40,6 +49,8 @@ permalink: /research/
 - sabermetric exploratory analysis
 
 ## Recent Publications
+
+1. **Williams, J.R.**, and Crespi, C.M. (2020). Causal inference for multiple continuous exposures via the multivariate generalized propensity score. arXiv preprint. [arXiv:2008.13767](https://arxiv.org/abs/2008.13767).
 
 1. **Williams, J.R.**, Kim, H. and Crespi, C.M. (2020). Modeling observations with a detection limit using a truncated normal distribution with censoring. BMC Med Res Methodol, 20:170. doi:[10.1186/s12874-020-01032-9](https://doi.org/10.1186/s12874-020-01032-9)
 
