@@ -14,11 +14,16 @@ permalink: /research/
 ## Original R Packages
 
 [mvGPS](https://github.com/williazo/mvGPS)
-<!-- begin badges -->
+[![CRAN
+version](http://www.r-pkg.org/badges/version/mvGPS)](https://cran.r-project.org/package=mvGPS)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/grand-total/mvGPS)](https://cran.r-project.org/package=mvGPS)
+[![cran
+checks](https://cranchecks.info/badges/worst/mvGPS)](https://cran.r-project.org/web/checks/check_results_mvGPS.html)
 [![Build
 Status](https://travis-ci.org/williazo/mvGPS.svg?branch=master)](https://travis-ci.org/williazo/mvGPS)
 [![codecov](https://codecov.io/gh/williazo/mvGPS/branch/master/graph/badge.svg)](https://codecov.io/gh/williazo/mvGPS)
-<!-- end badges -->
+
 - generate multivariate generalized propensity scores and weights
 - assess covariate balance, define estimable regions using convex hull, and implement other common univariate methods
 
@@ -32,8 +37,17 @@ Status](https://travis-ci.org/williazo/mvGPS.svg?branch=master)](https://travis-
 - available at [BioConductor/microbiomeDASim](https://bioconductor.org/packages/microbiomeDASim)
 
 [tcensReg](https://github.com/williazo/tcensReg)
-[![CRAN version](http://www.r-pkg.org/badges/version/tcensReg)](http://www.r-pkg.org/pkg/tcensReg)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/tcensReg)](http://www.r-pkg.org/pkg/tcensReg)
+<!-- badges: start -->
+[![CRAN
+version](http://www.r-pkg.org/badges/version/tcensReg)](http://www.r-pkg.org/pkg/tcensReg)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/grand-total/tcensReg)](http://www.r-pkg.org/pkg/tcensReg)
+[![cran
+checks](https://cranchecks.info/badges/worst/tcensReg)](https://cranchecks.info/pkgs/tcensReg)
+[![Build
+Status](https://travis-ci.org/williazo/tcensReg.svg?branch=master)](https://travis-ci.org/williazo/tcensReg)
+[![codecov](https://codecov.io/gh/williazo/tcensReg/branch/master/graph/badge.svg)](https://codecov.io/gh/williazo/tcensReg)
+<!-- badges: end -->
 
 - calculate maximum likelihood estimates from truncated normal distribution with censored observations
 - now available on CRAN repository for stable release while GitHub contains development version
