@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Methods for Causal Inference with Multiple Continuous Exposures using Multivariate Generalized Propensity Score, mvGPS</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Justin Williams" />
+    <meta name="date" content="2020-11-05" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections/anchor-sections.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="libs/academicons/css/academicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="ucla-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide
+
+# Methods for Estimating Causal Effects for Multivariate Continuous Exposures
+
+## Justin Williams
+
+### 2020-11-05
+
+&lt;div class="ucla-seal-left"&gt;&lt;/div&gt;
+&lt;div class="fsph-logo-right"&gt;&lt;/div&gt;
+
+---
+
+
+
+
+
+
+
+
+
+
+class: center, middle, inverse
+# Introduction
+---
+# What If...
+
+.pull-left[
+.small[
+- Q: "*What if* the batter had swung?"
+
+- "What-if" questions require us to think causally and imagine unobserved potential outcomes
+
+- Inability to observe all potential outcomes
+    - Fundamental problem of causal inference (Holland, 1986)
+    - Third rung of ladder of causation (Pearl and Mackenzie, 2018)
+]
+]
+.pull-right[
+&lt;iframe width="560" height="315"
+src="https://streamable.com/m/julio-urias-guides-l-a-to-ws-win"
+frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+]
+---
+# Background
+
+- Gold standard for answering causal questions is the randomized clinical trial
+    - Balance on known and unknown confounders
+- However, using the gold standard RCT may not be possible in real world settings
+    - Unrealistic, e.g., surgery vs. placebo
+    - Unethical, e.g., forcing patients to smoke
+
+- How to estimate causal effects without randomization?
+    - Exposure may be systematically related to outcome
+
+- Utilize propensity score method (Rosenbaum and Rubin, 1983)
+
+&gt; .small[.dodger-blue[Propensity score] = Probability of receiving exposure given set of confounders]
+
+`\begin{align}
+\Pr(D=1\mid C)
+\end{align}`
+
+---
+# Brief History of Propensity Score
+
+**Estimation**
+1. Originally proposed by Rosenbaum and Rubin (1983)
+    - Handled binary exposure only, i.e., exposed vs. control
+1. Methods extended to categorical, or multiple, treatments by Imbens (2000)
+    - Term "generalized propensity score" (GPS) is introduced &lt;sup&gt;1&lt;/sup&gt;
+1. Adaptions for continuous treatments introduced by Hirano and Imbens (2004); Imai and Van Dyk (2004)
+    - Use Gaussian densities for estimating probability of exposure level
+
+**Bias Removal**
+1. Covariate adjustment
+1. Subclassification/stratification
+1. Matching
+1. Inverse probability of treatment weighting (IPTW)
+
+.footnote[
+[1] Throughout we use GPS to refer to continuous rather than categorical treatment
+]
+---
+# Propensity Score with Continuous Exposure
+.small[
+- Popular applications
+    - *Economics*: difference in employment outcomes due to length of time in job
+    training program (Flores, Flores-Lagunes, Gonzalez, and Neumann, 2012; Kluve, Schneider, Uhlendorff, and Zhao, 2012)
+    - *Health outcomes*: childhood obesity and duration of breastfeeding (Jiang and Foster, 2013)
+    - *Education policy*: transfer rate and number of credits taken (Doyle, 2011)
+- Methodology development
+    - SuperLearner (Kreif, Grieve, Díaz, and Harrison, 2015)
+    - Kernel density estimation (Flores, Flores-Lagunes, Gonzalez, and Neumann, 2012)
+    - Gradient boosting (Zhu, Coffman, and Ghosh, 2015)
+    - Covariate balancing generalized propensity score (CBGPS) (Fong, Hazlett, and Imai, 2018)
+    - Entropy balancing (Vegetabile, Griffin, Coffman, Cefalu, and McCaffrey, 2020; Tübbicke, 2020)
+]
+---
+# Multivariate Continuous Exposures
+
+- All methodological development have focused on single univariate continuous exposure
+    - Multiple exposures noted only briefly in Imai and Van Dyk (2004)
+- Need for methods to handle multivariate exposures
+    - Identify potential combination therapies from observational studies
+        - COVID-19 treatments (Sanders, Monogue, Jodlowski, and Cutrell, 2020)
+    - Estimate combined effects of childhood obesity intervention programs in the community
+- Challenges:
+    - Define multivariate densities for generalized propensity score
+    - Multiple sets of confounders
+    - Correlation of exposures
+    - Assessing high dimensional balance
+    - Properly defining estimable multivariate region for inference
+---
+class: center, middle, inverse
+# Motivating Example
+---
+# Project Goal&lt;sup&gt;1&lt;/sup&gt;
+- High obesity rates of low-income pre-school aged children in Los Angeles County (PHFE WIC, 2010)
+    - 20% classified as obese during period from 2003-2009
+
+- Estimate causal effects of non-random obesity interventions on WIC preschool-aged child obesity rates
+
+- Intervention Period: 2010-2016
+
+- Exposure:
+    - WIC intervention programs
+
+- Outcome:
+    - Change in obesity prevalence from post- to pre-intervention measured at census tracts
+
+&lt;div class="wic-logo-right"&gt;&lt;/div&gt;
+.footnote[
+[1] Early Childhood Obesity Systems Science (ECOSyS) study funded by NIH
+[R01 HD072296](https://grantome.com/grant/NIH/R01-HD072296-01A1)
+]
+???
+- In 2018 WIC served approximately half of all children under age 5 in Los Angeles County
+---
+
+# Outcome Data
+
+.pull-left[
+.small[
+- Source:
+    - WIC administrative data&lt;sup&gt;1&lt;/sup&gt;
+    - Pulled from 2007-2016
+- Quantification:
+    - Aggregated obesity prevalence at census tracts
+    - Include only census tracts with at least 30 WIC children for all years
+        - Total of 1079 included
+    - Pre-intervention=2007-2009
+    - Post-intervention=2012-2016
+        - Allow for lagged treatment effect
+    `$$Y=\bar{p}_{post}-\bar{p}_{pre}$$`
+]
+]
+.pull-right[
+
+&lt;img src="times_ct_wic.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+.footnote[
+[1] Part of the [WIC Data Mining Project](https://lawicdata.org)
+]
+---
+
+# Exposure Data
+
+.pull-left[
+.small[
+- Source:
+    - Interviews with WIC staff
+    - Total of 32 programs identified across 7 WIC agencies in LAC
+    - Targeted 8 regions during interview process
+- Quantification:
+    1. Categorize intervention strategies used by program
+    2. Construct adapted "intervention dose index"
+    3. Identify clinics that implemented intervention
+    4. Map dose from clinics to census tracts
+]
+]
+.pull-right[
+&lt;img src="all_lac_wic_site.png" width="90%" style="display: block; margin: auto;" /&gt;
+]
+---
+# Intervention Strategies
+
+- Classified strategies into one of 9 categories
+    - Grouped as **micro** (targeted individuals) or **macro** (global population)
+
+| **\#** |          **Name**          | **Group** |  n (%)   |
+|:------:|:--------------------------:|:---------:|:--------:|
+|   1    |    Government Policies     |   Macro   |  1 (3%)  |
+|   2    |   Institutional Polices    |   Macro   | 4 (12%)  |
+|   3    | Infrastructure Investments |   Macro   |  3 (9%)  |
+|   4    |     Business Practices     |   Macro   | 4 (12%)  |
+|   5    |      Group Education       |   Micro   | 21 (66%) |
+|   6    |         Counseling         |   Micro   | 14 (44%) |
+|   7    |    Health Communication    |   Micro   | 17 (53%) |
+|   8    |      Home Visitation       |   Micro   | 8 (25%)  |
+|   9    |   Screening and Referral   |   Micro   | 14 (44%) |
+
+???
+- Micro strategies were more frequently used than macro
+- Program could use multiple strategies
+---
+# Intervention Dose Index
+
+.pull-left[
+.footnotesize[
+- Developed to quantify community exposure (Wang, Crespi, Jiang, Nobari, Roper-Fingerhut, Rauzon, Robles, Blocklin, Davoudi, Kuo, MacLeod, Seto, Whaley, and Prelip, 2018)
+`\begin{align}
+    IDI = RS \times FS \times SS
+\end{align}`
+- `\(RS\in[0,1]\)` = reach score:
+    - probability of receiving the intervention program
+- `\(FS\in[0,1]\)` = fidelity score:
+    - degree to which program was followed during implementation
+- `\(SS\in[1,9]\)` = strength score:
+    - effectiveness of strategy as rated by subject matter experts
+
+- Estimated for each strategy and then summed by group, macro and micro
+]
+]
+.pull-right[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="dose_constr_overview_v2.png" alt="Adapted IDI construction example" width="95%" /&gt;
+&lt;p class="caption"&gt;Adapted IDI construction example&lt;/p&gt;
+&lt;/div&gt;
+
+]
+???
+- We assume FS=1 for all programs and omit SS in our adapted version as we want to estimate this from the data
+
+---
+# Catchment Areas
+.panelset[
+.panel[.panel-name[Description]
+- Inherent geographic misalignment
+    - Exposure data on intervention programs at **clinic locations**
+    - Outcome data on obesity rates at *census tracts*
+- Construct mapping using catchment areas
+- Catchment area construction:
+    1. Based on client participation patterns of attendance at each clinic
+    1. Form a circle with radius such that X% of clients attend the clinic within the circle
+        - Macro strategies: X=80%
+        - Micro strategies: X=50%
+    1. All census tracts that overlap circle receive program macro and micro dose
+]
+.panel[.panel-name[Comparison]
+.pull-left[
+***Micro***
+
+&lt;img src="catchment_area/lac_wic_buffer_map_avg_thres_50_v2_2.jpeg" width="80%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+***Macro***
+
+&lt;img src="catchment_area/lac_wic_buffer_map_avg_thres_80_v2_2.jpeg" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+]
+???
+- Key feature is that macro catchment areas are larger than micro reflecting belief that they have broader impact than micro
+- Outlined we also see the 8 regions of interest where interviews were targeted
+---
+# Exposure Dose
+&lt;img src="joint_distribution/macro_micro_joint_dose_full.png" width="65%" style="display: block; margin: auto;" /&gt;
+???
+- In red is the trimmed convex hull region at the 95th quantile
+- Each point represents a census tract
+---
+class: center, middle, inverse
+
+# Multivariate Generalized Propensity Score
+## mvGPS
+
+---
+# Notation
+
+- `\(Y\)`: outcome of interest
+- `\(\mathbf{D}\)`: multivariate exposure of dimension `\(m\)`&lt;sup&gt;1&lt;/sup&gt;
+- `\(\mathcal{C}=\{\mathbf{C}_{1}, \dots, \mathbf{C}_{m}\}\)`: set of random variables of
+length `\(m\)`
+    - Each `\(\mathbf{C}_{j}\)` for `\(j=1,\dots,m\)`, is a `\(p_{j}\)` vector of baseline
+    confounders associated with the `\(j^{th}\)` exposure and outcome
+- `\(Y_{i}(\mathbf{d})\)`: potential outcome of `\(i^{th}\)` subject assigned exposure
+vector `\(\mathbf{d}=(d_{1},\dots,d_{m})\)`
+- `\(\mu(\mathbf{d})=\mathbb{E}[Y(\mathbf{d})]\)`: average dose-response function
+- `\(n\)`: total number of units
+- `\(C_{ijk}\)`: `\(k^{th}\)` confounder of the `\(j^{th}\)` exposure for the `\(i^{th}\)` individual
+
+- Observed data
+    - `\((Y_{i}, D_{i1},\dots,D_{im}, C_{i11}, \dots, C_{i1p_{1}}, \dots, C_{im1}, \dots, C_{imp_{m}})\)`
+
+
+.footnote[
+[1] In simulation and application we fix *m*=2 for bivariate exposure
+]
+
+---
+# Identifying Assumptions
+.panelset[
+.panel[.panel-name[Overview]
+
+- Three key assumptions for valid causal quantities
+
+1. Weak ignorability
+1. Positivity
+1. Stable-unit treatment value (SUTVA)
+
+]
+.panel[.panel-name[Weak ignorability]
+
+- Exposure is conditionally independent of the potential outcomes given the
+appropriate set of confounders.
+
+`\begin{align}
+Y_{i}(\mathbf{d})\perp \!\!\! \perp\mathbf{D}_{i}\mid \mathcal{C} \quad \forall \quad \mathbf{d}\in\mathcal{D}.
+\end{align}`
+
+- Replace `\(\mathcal{C}\)` with `\(f_{\mathbf{D}\mid\mathcal{C}}\)`
+    - Especially with high dimensional set and/or continuous confounders
+
+- Difficult to rationalize
+    - Requires perfect knowledge *and* collection of confounders
+    - We assume it holds, i.e., no unmeasured confounding
+
+- "Weak" refers to conditional independence for *each* level of exposure not *joint* distribution of exposures
+
+]
+.panel[.panel-name[Positivity]
+.pull-left[
+- All units have the potential to receive a particular level of exposure given
+any value of the confounders
+
+`\begin{align}
+0&lt;f_{\mathbf{D}\mid\mathcal{C}}(\mathbf{D}=\mathbf{d}\mid \mathcal{C})&lt;1  \quad \forall \quad \mathbf{d}\in\mathcal{D}
+\end{align}`
+
+- Grid or **convex hull**
+
+- **Trimmed** or untrimmed
+]
+.pull-right[
+
+&lt;img src="sim_images/chull_sim.jpeg" width="80%" style="display: block; margin: auto;" /&gt;
+- `\(\text{Cov}(D_{1}, D_{2})=0.5\)`
+- .indian-red[Convex hull] and .dodger-blue[grid]
+]
+]
+.panel[.panel-name[SUTVA]
+- The potential outcome of each unit does not depend on the exposure that other
+units receive *and* that there exists only one version of each exposure
+
+- Assumes there is no interference between units
+    - No herd immunity
+
+- No errors in defining the potential outcomes caused by **multiple versions** of
+the exposure
+
+- `\(Y_{i} = Y_{i}(\mathbf{d})\)`
+]
+]
+---
+# mvGPS
+
+- Conditional probability of receiving multivariate exposure given set of confounders
+
+`\begin{align}
+f(\mathbf{D}|\mathbf{C}_{1},\dots,\mathbf{C}_{m})
+\end{align}`
+
+- For bias removal construct inverse probability of treatment weights
+
+`\begin{align}
+w=\frac{f(\mathbf{D})}{f(\mathbf{D}|\mathbf{C}_{1},\dots,\mathbf{C}_{m})},
+\end{align}`
+
+- Propose multivariate normal models
+`\begin{align}
+\mathbf{D}\sim \text{N}_{m}(\boldsymbol{\mu}, \boldsymbol{\Sigma}) \quad \mathbf{D}\mid \mathbf{C}_{1},\dots,\mathbf{C}_{m}\sim \text{N}_{m}\Bigg(\begin{bmatrix}\boldsymbol{\beta}_{1}^{T}\mathbf{C}_{1}\\ \vdots \\ \boldsymbol{\beta}_{m}^{T}\mathbf{C}_{m}\end{bmatrix}, \boldsymbol{\Omega}\Bigg),
+\end{align}`
+    - Tractable, well-behaved asymptotics, full univariate conditionals
+    - Estimate parameters using ordinary least squares
+---
+# Properties of mvGPS weights
+
+- Returns consistent estimate of average dose-response function
+    - `\(\mathbb{E}[wY\mid\mathbf{D}]=\mathbb{E}[Y(\mathbf{d})]\)`
+
+- Covariance between each exposure, `\(D_{j}\)` and confounder, `\(C_{jk}\)`, is zero
+    - `\(\mathbb{E}[w(D_{j}-\mu_{D_j})(C_{jk}-\mu_{C_{jk}})]=0\)`
+
+- Weights are normalized and maintain marginal moments
+    - `\(\mathbb{E}[w]=1\)`
+    - `\(\mathbb{E}[w D_{j}]=\mathbb{E}[D_{j}]\)`
+    - `\(\mathbb{E}[w\mathbf{C}_{j}]=\mathbb{E}[\mathbf{C}_{j}]\)`
+---
+class: center, middle, inverse
+
+# Simulation
+---
+# Design
+- Sample size : `\(n=200\)`
+
+- Repetitions: `\(B=1000\)`
+
+- Compare mvGPS to other univariate&lt;sup&gt;1&lt;/sup&gt; alternative methods
+    - Covariate balancing generalized propensity score, CBGPS, (Fong, Hazlett, and Imai, 2018)
+    - Entropy balancing (Tübbicke, 2020)
+    - Generalized linear propensity score, PS
+
+- Simulate bivariate normal exposure
+    - marginal correlation
+    - overlap of confounding sets
+
+- Effect of trimming weights (Kang and Schafer, 2007)
+    - None vs. 99th quantile vs 95th quantile
+
+.footnote[
+[1] Estimated twice, once for each exposure
+]
+
+???
+- Univariate methods may perform well when exposures are highly correlated and have the same confounders
+    - Perform poorly with weakly correlated exposures and/or separate sets of confounders
+---
+# Scenarios
+.pull-left[
+.small[
+- M1: No common confounding
+    - Each exposure has separate set of confounders
+    - `\(\mathbf{C}_{1}\)` and `\(\mathbf{C}_{2}\)`
+
+- M2: Partially common confounding
+    - Each exposure have some unique confounders but also share set of common confounders
+    - `\(\mathbf{C}_{1}\)`, `\(\mathbf{C}_{2}\)`, and `\(\mathbf{C}_{12}\)`
+
+- M3: Common confounding
+    - Both exposures share exact same set of common confounders
+    - `\(\mathbf{C}_{12}\)`
+]
+
+]
+.pull-right[
+
+&lt;img src="DAGS/sim_dags_c_only.jpeg" width="65%" style="display: block; margin: auto;" /&gt;
+]
+---
+# Balance Results
+
+.panelset[
+.panel[.panel-name[Setup]
+
+- Three balance metrics were assessed
+    1. Average weighted absolute Pearson exposure-covariate correlation
+    1. Maximum weighted absolute Pearson exposure-covariate correlation
+    1. Effective sample size, `\((\Sigma_i w_i)^{2}/\Sigma_i w_i^2\)`
+]
+.panel[.panel-name[Avg Correlation]
+
+&lt;img src="sim_images/avg_corr_plot.jpeg" width="57%" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[Max Correlation]
+
+ &lt;img src="sim_images/max_corr_plot.jpeg" width="57%" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[ESS]
+
+&lt;img src="sim_images/ess_plot.jpeg" width="57%" style="display: block; margin: auto;" /&gt;
+]
+]
+???
+- Average summarizes total balance on all confounders
+- Max describes the most imbalanced confounder
+- ESS is equivalent to the relative power for inference
+
+---
+# Dose Response Results
+.panelset[
+.panel[.panel-name[Setup]
+
+- Two performance metrics were assessed
+    1. Absolute total bias
+    1. Root mean squared error (RMSE)
+]
+.panel[.panel-name[Bias]
+
+&lt;img src="sim_images/bias_plot.jpeg" width="57%" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[RMSE]
+
+ &lt;img src="sim_images/hull_rmse_plot.jpeg" width="57%" style="display: block; margin: auto;" /&gt;
+]
+]
+---
+
+# Takeaways
+
+- Multivariate methods are critical for achieving proper balance across multiple exposures
+    - Protects against any single confounder being strongly imbalanced
+    - Slight penalty of lower average balance in certain Scenarios
+- Univariate methods achieved best balance with high overlap of confounders
+    - Despite balance, high total bias of treatment effects
+- Using multivariate weights decreased ESS resulting in lower power and higher RMSE
+    - Weight trimming reduced these effects, `\(q=0.99\)`
+
+---
+class: center, middle, inverse
+# Application Results
+## Measuring Effect of WIC Intervention
+---
+# Potential Confounders
+.small[
+- Three data sources used: American Community Survey, WIC Admin, and NETS
+- All values for propensity equation are average of three years prior to intervention, i.e., 2007-2009
+
+American Community Survey
+1. % Spanish Speaking
+1. Median Household Income
+1. % with at least High School Diploma
+1. % of population less than 5 years old
+
+WIC Admin
+1. Obesity Prevalence
+1. Overweight or Obesity Prevalence
+
+NETS
+1. Healthy Outlets per sq. mile
+1. Unhealthy Outlets per sq. mile
+]
+---
+# Covariate Balance Total
+
+&lt;iframe src="3d_surfaces/ps_cov_bal.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt; &lt;/iframe&gt;
+
+---
+# Covariate Balance Summary
+
+| **Max Abs. Corr.** | **Avg. Abs. Corr.** | **ESS** |   **Method**    |
+|:------------------:|:-------------------:|:-------:|:---------------:|
+|        0.12        |        0.04         |   637   |      mvGPS      |
+|        0.18        |        0.08         |   580   |  CBGPS (Macro)  |
+|        0.22        |        0.07         |   659   |   PS (Macro)    |
+|        0.25        |        0.08         |   541   | Entropy (Macro) |
+|        0.35        |        0.12         |   779   | Entropy (Micro) |
+|        0.37        |        0.14         |   828   |   PS (Micro)    |
+|        0.49        |        0.16         |   679   |  CBGPS (Micro)  |
+|        0.41        |        0.19         |  1079   |   Unweighted    |
+
+---
+# Dose-Response Surface
+
+&lt;iframe src="3d_surfaces/dose_response_surface.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt; &lt;/iframe&gt;
+
+---
+# Takeaways
+
+**Balance**
+
+- Significant imbalance prior to weighting
+    - mvGPS had greater reduction in imbalance than univariate methods
+
+- ESS for all methods including mvGPS are reduced but power is still reasonable high
+
+**Dose-Response**
+
+- *Unweighted* estimate was monotonic plane where effectiveness increased as you increased either exposure dose
+
+- *mvGPS* estimate was a saddle with optimal effectiveness using high micro and low macro
+    - Showed that high levels of both exposures was less effective
+---
+# Exploring Tail Behavior
+
+&lt;iframe src="3d_surfaces/ps_weight_map.html"
+width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt;
+&lt;/iframe&gt;
+
+---
+# Discussion
+
+&lt;div class="cran-logo-right"&gt;&lt;/div&gt;
+
+- Achieved balance across multiple simultaneous exposures
+- Adapted for confounding sets and/or correlation of exposures
+- Visualized and interpreted effect of two continuous interventions with dose-response surface
+- Defined high dimensional positivity space with convex hull
+- [mvGPS](https://cran.r-project.org/package=mvGPS) package available now on CRAN
+
+### Limitations
+- Multivariate normal parametric distribution
+- Investigation of higher dimensional exposure
+- Time-varying multivariate exposure
+- Multiple versions possible for macro and micro doses
+- Geographic interference (SUTVA violations)
+
+---
+# References I
+.scriptsize[
+Doyle, W. R. (2011). "Effect of increased academic momentum on transfer
+rates: an application of the generalized propensity score". In:
+_Economics of Education Review_ 30.1, pp. 191-200.
+
+Flores, C. A., A. Flores-Lagunes, A. Gonzalez, and T. C. Neumann
+(2012). "Estimating the effects of length of exposure to instruction in
+a training program: The case of job corps". In: _Review of Economics
+and Statistics_ 94.1, pp. 153-171.
+
+Fong, C., C. Hazlett, and K. Imai (2018). "Covariate balancing
+propensity score for a continuous treatment: application to the
+efficacy of political advertisements". In: _Annals of Applied
+Statistics_ 12.1, pp. 156-177.
+
+Hirano, K. and G. W. Imbens (2004). "The propensity score with
+continuous treatments". In: _Applied Bayesian Modeling and Causal
+Inference from Incomplete-Data Perspectives_. Ed. by A. Gelman and X.
+Meng. Hoboken, N.J.: John Wiley &amp; Sons, pp. 73-84.
+
+Holland, P. W. (1986). "Statistics and Causal Inference". In: _Journal
+of the American Statistical Association_ 81.396, pp. 945-960.
+
+Imai, K. and D. A. Van Dyk (2004). "Causal inference with general
+treatment regimes: Generalizing the propensity score". In: _Journal of
+the American Statistical Association_ 99.467, pp. 854-866.
+
+Imbens, G. W. (2000). "The role of the propensity score in estimating
+dose-response functions". In: _Biometrika_ 87.3, pp. 706-710.
+
+Jiang, M. and E. M. Foster (2013). "Duration of breastfeeding and
+childhood obesity: a generalized propensity score approach". In:
+_Health Services Research_ 48.2.1, pp. 628-651.
+
+Kang, J. D. and J. L. Schafer (2007). "Demystifying double robustness:
+A comparison of alternative strategies for estimating a population mean
+from incomplete data". In: _Statistical Science_ 22.4, pp. 523-539.
+]
+---
+# References II
+.scriptsize[
+Kluve, J., H. Schneider, A. Uhlendorff, and Z. Zhao (2012). "Evaluating
+continuous training programmes by using the generalized propensity
+score". In: _Journal of the Royal Statistical Society: Series A_ 175.2,
+pp. 587-617.
+
+Kreif, N., R. Grieve, I. Díaz, and D. Harrison (2015). "Evaluation of
+the effect of a continuous treatment: A machine learning approach with
+an application to treatment for traumatic brain injury". In: _Health
+Economics_ 24.9, pp. 1213-1228.
+
+Pearl, J. and D. Mackenzie (2018). _The Book of Why: The New Science of
+Cause and Effect_. New York: Basic Books.
+
+PHFE WIC (2010). _WIC data 2003-2009: A report on low income families
+with young children in Los Angeles County_. Technical Report. Special
+Supplemental Nutrition Assistance Program for Women, Infants and
+Children.
+
+Rosenbaum, P. R. and D. B. Rubin (1983). "The central role of the
+propensity score in observational studies for causal effects". In:
+_Biometrika_ 70.1, pp. 41-55.
+
+Sanders, J. M., M. L. Monogue, T. Z. Jodlowski, and J. B. Cutrell
+(2020). "Pharmacologic Treatments for Coronavirus Disease 2019
+(COVID-19): A Review". In: _JAMA_ 323.18, pp. 1824-1836.
+
+Tübbicke, S. (2020). "Entropy Balancing for Continuous Treatments". In:
+_arXiv preprint arXiv:2001.06281_. arXiv: 2001.06281 [econ.EM].
+
+Vegetabile, B. G., B. A. Griffin, D. L. Coffman, M. Cefalu, et al.
+(2020). "Nonparametric Estimation of Population Average Dose-Response
+Curves using Entropy Balancing Weights for Continuous Exposures". In:
+_arXiv preprint arXiv:2003.02938_. arXiv: 2003.02938 [stat.ME].
+
+Wang, M. C., C. M. Crespi, L. H. Jiang, T. Nobari, et al. (2018).
+"Developing an index of dose of exposure to early childhood obesity
+community interventions". In: _Preventive Medicine_ 111, pp. 135-141.
+
+Zhu, Y., D. L. Coffman, and D. Ghosh (2015). "A boosting algorithm for
+estimating generalized propensity scores with continuous treatments".
+In: _Journal of Causal Inference_ 3.1, pp. 25-40.
+]
+---
+class: inverse
+
+# Thank You!
+
+.pull-right[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;a href="mailto:williazo@ucla.edu"&gt;
+.white[<i class="fas  fa-envelope "></i> williazo@ucla.edu]
+&lt;/a&gt;
+
+&lt;a href="http://github.com/williazo"&gt;
+.white[<i class="fab  fa-github "></i> williazo]
+&lt;/a&gt;
+
+&lt;a href="https://orcid.org/0000-0002-5045-2764"&gt;
+.white[<i class="ai  ai-orcid "></i> ORCID]
+&lt;/a&gt;
+
+&lt;a href="https://arxiv.org/search/?query=0000-0002-5045-2764&amp;searchtype=orcid&amp;source=header"&gt;
+.white[<i class="ai  ai-arxiv "></i> arXiv]
+&lt;/a&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+]
+
+&lt;div class="ucla-seal-left"&gt;&lt;/div&gt;
+&lt;div class="fsph-logo-right"&gt;&lt;/div&gt;
+---
+
+# Dose Refinements
+
+1. Radius truncation
+
+1. Micro exposure inverse distance weighting
+
+1. Overlapping catchment area adjustment
+
+---
+
+# Dose Refinement Example
+
+&lt;img src="catchment_area/micro_adj_example.png" width="80%" style="display: block; margin: auto;" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
