@@ -169,7 +169,7 @@ h3 {
 
 .remark-slide-number {
   color: #23395b;
-  opacity: 0;
+  opacity: 0.5;
   font-size: 0.6em;
 }
 
@@ -387,31 +387,6 @@ table.dataTable.display tbody tr:hover {
 
 .bg-black {
   background-color: var(--black);
-}
-
-.blockquote p {
-  margin-top: 0px;
-  margin-bottom: 5px;
-}
-
-.blockquote>h1:first-of-type {
-  margin-top: 0px;
-  margin-bottom: 5px;
-}
-
-.blockquote>h2:first-of-type {
-  margin-top: 0px;
-  margin-bottom: 5px;
-}
-
-.blockquote>h3:first-of-type {
-  margin-top: 0px;
-  margin-bottom: 5px;
-}
-
-.blockquote>h4:first-of-type {
-  margin-top: 0px;
-  margin-bottom: 5px;
 }
 
 
