@@ -12,6 +12,8 @@
     <script src="libs/panelset/panelset.js"></script>
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
     <link href="libs/academicons/css/academicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="ucla-themer.css" type="text/css" />
@@ -91,7 +93,7 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&g
 1. Originally proposed by Rosenbaum and Rubin (1983)
     - Handled binary exposure only, i.e., exposed vs. control
 1. Methods extended to categorical, or multiple, treatments by Imbens (2000)
-    - Term "generalized propensity score" (GPS) is introduced &lt;sup&gt;1&lt;/sup&gt;
+    - Term "generalized propensity score" (GPS) is introduced
 1. Adaptions for continuous treatments introduced by Hirano and Imbens (2004); Imai and Van Dyk (2004)
     - Use Gaussian densities for estimating probability of exposure level
 
@@ -101,9 +103,8 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&g
 1. Matching
 1. Inverse probability of treatment weighting (IPTW)
 
-.footnote[
-[1] Throughout we use GPS to refer to continuous rather than categorical treatment
-]
+???
+- Throughout we use GPS to refer to continuous rather than categorical treatment
 ---
 # Propensity Score with Continuous Exposure
 .small[
@@ -122,7 +123,7 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&g
 ---
 # Multivariate Continuous Exposures
 
-- All methodological development have focused on single univariate continuous exposure
+- All methodological development has focused on single univariate continuous exposure
     - Multiple exposures noted only briefly in Imai and Van Dyk (2004)
 - Need for methods to handle multivariate exposures
     - Identify potential combination therapies from observational studies
@@ -138,11 +139,14 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&g
 class: center, middle, inverse
 # Motivating Example
 ---
-# Project Goal&lt;sup&gt;1&lt;/sup&gt;
-- High obesity rates of low-income pre-school aged children in Los Angeles County (PHFE WIC, 2010)
+# Project Goal
+- High obesity rates of low-income 2-5 year olds in Los Angeles County (PHFE WIC, 2010)
     - 20% classified as obese during period from 2003-2009
 
-- Estimate causal effects of non-random obesity interventions on WIC preschool-aged child obesity rates
+- Estimate causal effects of non-randomly assigned obesity interventions on WIC preschool-aged child obesity rates
+    - Early Childhood Obesity Systems Science (ECOSyS) study funded by NIH
+[R01 HD072296](https://grantome.com/grant/NIH/R01-HD072296-01A1)
+
 
 - Intervention Period: 2010-2016
 
@@ -153,10 +157,6 @@ class: center, middle, inverse
     - Change in obesity prevalence from post- to pre-intervention measured at census tracts
 
 &lt;div class="wic-logo-right"&gt;&lt;/div&gt;
-.footnote[
-[1] Early Childhood Obesity Systems Science (ECOSyS) study funded by NIH
-[R01 HD072296](https://grantome.com/grant/NIH/R01-HD072296-01A1)
-]
 ???
 - In 2018 WIC served approximately half of all children under age 5 in Los Angeles County
 ---
@@ -166,10 +166,11 @@ class: center, middle, inverse
 .pull-left[
 .small[
 - Source:
-    - WIC administrative data&lt;sup&gt;1&lt;/sup&gt;
+    - WIC administrative data
+        - Part of the [WIC Data Mining Project](https://lawicdata.org)
     - Pulled from 2007-2016
 - Quantification:
-    - Aggregated obesity prevalence at census tracts
+    - Obesity prevalence at census tracts
     - Include only census tracts with at least 30 WIC children for all years
         - Total of 1079 included
     - Pre-intervention=2007-2009
@@ -181,9 +182,6 @@ class: center, middle, inverse
 .pull-right[
 
 &lt;img src="times_ct_wic.png" width="95%" style="display: block; margin: auto;" /&gt;
-]
-.footnote[
-[1] Part of the [WIC Data Mining Project](https://lawicdata.org)
 ]
 ---
 
@@ -208,21 +206,75 @@ class: center, middle, inverse
 ---
 # Intervention Strategies
 
-- Classified strategies into one of 9 categories
-    - Grouped as **micro** (targeted individuals) or **macro** (global population)
+- Classified interventions into 9 potential strategies
+    - Grouped as **micro** (targeted individuals) or **macro** (general population)
 
-| **\#** |          **Name**          | **Group** |  n (%)   |
-|:------:|:--------------------------:|:---------:|:--------:|
-|   1    |    Government Policies     |   Macro   |  1 (3%)  |
-|   2    |   Institutional Polices    |   Macro   | 4 (12%)  |
-|   3    | Infrastructure Investments |   Macro   |  3 (9%)  |
-|   4    |     Business Practices     |   Macro   | 4 (12%)  |
-|   5    |      Group Education       |   Micro   | 21 (66%) |
-|   6    |         Counseling         |   Micro   | 14 (44%) |
-|   7    |    Health Communication    |   Micro   | 17 (53%) |
-|   8    |      Home Visitation       |   Micro   | 8 (25%)  |
-|   9    |   Screening and Referral   |   Micro   | 14 (44%) |
-
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-weight: bold;color: #f3f6f6 !important;background-color: #4f86a7 !important;"&gt; # &lt;/th&gt;
+   &lt;th style="text-align:left;font-weight: bold;color: #f3f6f6 !important;background-color: #4f86a7 !important;"&gt; Name &lt;/th&gt;
+   &lt;th style="text-align:left;font-weight: bold;color: #f3f6f6 !important;background-color: #4f86a7 !important;"&gt; Group &lt;/th&gt;
+   &lt;th style="text-align:left;font-weight: bold;color: #f3f6f6 !important;background-color: #4f86a7 !important;"&gt; n (%) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; Government Policies &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; Macro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; 1 (3%) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; Institutional Polices &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; Macro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; 4 (12%) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; Infrastructure Investments &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; Macro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; 3 (9%) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; Business Practices &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; Macro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #f3f6f6 !important;"&gt; 4 (12%) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Group Education &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Micro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 21 (66%) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Counseling &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Micro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 14 (44%) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Health Communication &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Micro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 17 (53%) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Home Visitation &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Micro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 8 (25%) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Screening and Referral &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; Micro &lt;/td&gt;
+   &lt;td style="text-align:left;color: #40514e !important;background-color: #D3D7DE !important;"&gt; 14 (44%) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ???
 - Micro strategies were more frequently used than macro
 - Program could use multiple strategies
@@ -262,14 +314,14 @@ class: center, middle, inverse
 .panel[.panel-name[Description]
 - Inherent geographic misalignment
     - Exposure data on intervention programs at **clinic locations**
-    - Outcome data on obesity rates at *census tracts*
+    - Outcome data on obesity rates at **census tracts**
 - Construct mapping using catchment areas
 - Catchment area construction:
     1. Based on client participation patterns of attendance at each clinic
-    1. Form a circle with radius such that X% of clients attend the clinic within the circle
-        - Macro strategies: X=80%
-        - Micro strategies: X=50%
-    1. All census tracts that overlap circle receive program macro and micro dose
+    1. Form a circle encompassing X% of clients who attend the clinic
+        - Macro strategies: 80%
+        - Micro strategies: 50%
+    1. Census tracts that overlap catchment area receive program IDI
 ]
 .panel[.panel-name[Comparison]
 .pull-left[
@@ -303,7 +355,8 @@ class: center, middle, inverse
 # Notation
 
 - `\(Y\)`: outcome of interest
-- `\(\mathbf{D}\)`: multivariate exposure of dimension `\(m\)`&lt;sup&gt;1&lt;/sup&gt;
+- `\(\mathbf{D}\)`: multivariate exposure of dimension `\(m\)`
+    - In simulation study and application we fix `\(m=2\)`, i.e., bivariate exposure
 - `\(\mathcal{C}=\{\mathbf{C}_{1}, \dots, \mathbf{C}_{m}\}\)`: set of random variables of
 length `\(m\)`
     - Each `\(\mathbf{C}_{j}\)` for `\(j=1,\dots,m\)`, is a `\(p_{j}\)` vector of baseline
@@ -316,12 +369,6 @@ vector `\(\mathbf{d}=(d_{1},\dots,d_{m})\)`
 
 - Observed data
     - `\((Y_{i}, D_{i1},\dots,D_{im}, C_{i11}, \dots, C_{i1p_{1}}, \dots, C_{im1}, \dots, C_{imp_{m}})\)`
-
-
-.footnote[
-[1] In simulation and application we fix *m*=2 for bivariate exposure
-]
-
 ---
 # Identifying Assumptions
 .panelset[
@@ -423,14 +470,14 @@ w=\frac{f(\mathbf{D})}{f(\mathbf{D}|\mathbf{C}_{1},\dots,\mathbf{C}_{m})},
 ---
 class: center, middle, inverse
 
-# Simulation
+# Simulation Study
 ---
 # Design
 - Sample size : `\(n=200\)`
 
 - Repetitions: `\(B=1000\)`
 
-- Compare mvGPS to other univariate&lt;sup&gt;1&lt;/sup&gt; alternative methods
+- Compare mvGPS to other univariate alternative methods
     - Covariate balancing generalized propensity score, CBGPS, (Fong, Hazlett, and Imai, 2018)
     - Entropy balancing (Tübbicke, 2020)
     - Generalized linear propensity score, PS
@@ -441,10 +488,6 @@ class: center, middle, inverse
 
 - Effect of trimming weights (Kang and Schafer, 2007)
     - None vs. 99th quantile vs 95th quantile
-
-.footnote[
-[1] Estimated twice, once for each exposure
-]
 
 ???
 - Univariate methods may perform well when exposures are highly correlated and have the same confounders
@@ -478,8 +521,8 @@ class: center, middle, inverse
 .panel[.panel-name[Setup]
 
 - Three balance metrics were assessed
-    1. Average weighted absolute Pearson exposure-covariate correlation
-    1. Maximum weighted absolute Pearson exposure-covariate correlation
+    1. Average exposure-covariate correlation
+    1. Maximum exposure-covariate correlation
     1. Effective sample size, `\((\Sigma_i w_i)^{2}/\Sigma_i w_i^2\)`
 ]
 .panel[.panel-name[Avg Correlation]
@@ -524,7 +567,7 @@ class: center, middle, inverse
 
 - Multivariate methods are critical for achieving proper balance across multiple exposures
     - Protects against any single confounder being strongly imbalanced
-    - Slight penalty of lower average balance in certain Scenarios
+    - Slight penalty of lower average balance in certain scenarios
 - Univariate methods achieved best balance with high overlap of confounders
     - Despite balance, high total bias of treatment effects
 - Using multivariate weights decreased ESS resulting in lower power and higher RMSE
@@ -533,7 +576,7 @@ class: center, middle, inverse
 ---
 class: center, middle, inverse
 # Application Results
-## Measuring Effect of WIC Intervention
+## Estimating Causal Effect of WIC Intervention
 ---
 # Potential Confounders
 .small[
@@ -548,11 +591,11 @@ American Community Survey
 
 WIC Admin
 1. Obesity Prevalence
-1. Overweight or Obesity Prevalence
+1. Overweight Prevalence
 
-NETS
-1. Healthy Outlets per sq. mile
-1. Unhealthy Outlets per sq. mile
+NETS (National Establishment Time-Series)
+1. Healthy Food Outlets per sq. mile
+1. Unhealthy Food Outlets per sq. mile
 ]
 ---
 # Covariate Balance Total
@@ -586,7 +629,7 @@ NETS
 - Significant imbalance prior to weighting
     - mvGPS had greater reduction in imbalance than univariate methods
 
-- ESS for all methods including mvGPS are reduced but power is still reasonable high
+- ESS for all methods are reduced but power is still reasonably high
 
 **Dose-Response**
 
@@ -610,7 +653,7 @@ width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt;
 - Adapted for confounding sets and/or correlation of exposures
 - Visualized and interpreted effect of two continuous interventions with dose-response surface
 - Defined high dimensional positivity space with convex hull
-- [mvGPS](https://cran.r-project.org/package=mvGPS) package available now on CRAN
+- [mvGPS](https://cran.r-project.org/package=mvGPS) R package available now on CRAN
 
 ### Limitations
 - Multivariate normal parametric distribution
@@ -621,7 +664,7 @@ width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt;
 
 ---
 # References I
-.scriptsize[
+.tiny[
 Doyle, W. R. (2011). "Effect of increased academic momentum on transfer
 rates: an application of the generalized propensity score". In:
 _Economics of Education Review_ 30.1, pp. 191-200.
@@ -658,10 +701,7 @@ _Health Services Research_ 48.2.1, pp. 628-651.
 Kang, J. D. and J. L. Schafer (2007). "Demystifying double robustness:
 A comparison of alternative strategies for estimating a population mean
 from incomplete data". In: _Statistical Science_ 22.4, pp. 523-539.
-]
----
-# References II
-.scriptsize[
+
 Kluve, J., H. Schneider, A. Uhlendorff, and Z. Zhao (2012). "Evaluating
 continuous training programmes by using the generalized propensity
 score". In: _Journal of the Royal Statistical Society: Series A_ 175.2,
@@ -671,7 +711,10 @@ Kreif, N., R. Grieve, I. Díaz, and D. Harrison (2015). "Evaluation of
 the effect of a continuous treatment: A machine learning approach with
 an application to treatment for traumatic brain injury". In: _Health
 Economics_ 24.9, pp. 1213-1228.
-
+]
+---
+# References II
+.tiny[
 Pearl, J. and D. Mackenzie (2018). _The Book of Why: The New Science of
 Cause and Effect_. New York: Basic Books.
 
@@ -755,7 +798,8 @@ class: inverse
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/37"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

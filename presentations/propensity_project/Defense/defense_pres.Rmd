@@ -10,7 +10,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-      titleSlideClass: ["left", "middle", "inverse"]
+      slideNumberFormat: "%current%/37"
     seal: false
 ---
 
@@ -27,7 +27,7 @@ class: title-slide
 
 ---
 
-```{r, load_refs, echo=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
+```{r load_refs, echo=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
 library(RefManageR)
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
@@ -102,7 +102,7 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 1. Originally proposed by `r Citet(myBib,"rosenbaum_propensity")`
     - Handled binary exposure only, i.e., exposed vs. control
 1. Methods extended to categorical, or multiple, treatments by `r Citet(myBib,"imbens_dose_resp")`
-    - Term "generalized propensity score" (GPS) is introduced <sup>1</sup>
+    - Term "generalized propensity score" (GPS) is introduced
 1. Adaptions for continuous treatments introduced by `r Citet(myBib, c("hirano_continuous", "imai_causalGPS"))`
     - Use Gaussian densities for estimating probability of exposure level
 
@@ -112,9 +112,8 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 1. Matching
 1. Inverse probability of treatment weighting (IPTW)
 
-.footnote[
-[1] Throughout we use GPS to refer to continuous rather than categorical treatment
-]
+???
+- Throughout we use GPS to refer to continuous rather than categorical treatment
 ---
 # Propensity Score with Continuous Exposure
 .small[
@@ -133,7 +132,7 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ---
 # Multivariate Continuous Exposures
 
-- All methodological development have focused on single univariate continuous exposure
+- All methodological development has focused on single univariate continuous exposure
     - Multiple exposures noted only briefly in `r Citet(myBib, "imai_causalGPS")`
 - Need for methods to handle multivariate exposures
     - Identify potential combination therapies from observational studies
@@ -149,11 +148,14 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 class: center, middle, inverse
 # Motivating Example
 ---
-# Project Goal<sup>1</sup>
-- High obesity rates of low-income pre-school aged children in Los Angeles County `r Citep(myBib, "phfewic")`
+# Project Goal
+- High obesity rates of low-income 2-5 year olds in Los Angeles County `r Citep(myBib, "phfewic")`
     - 20% classified as obese during period from 2003-2009
 
-- Estimate causal effects of non-random obesity interventions on WIC preschool-aged child obesity rates
+- Estimate causal effects of non-randomly assigned obesity interventions on WIC preschool-aged child obesity rates
+    - Early Childhood Obesity Systems Science (ECOSyS) study funded by NIH
+[R01 HD072296](https://grantome.com/grant/NIH/R01-HD072296-01A1)
+
 
 - Intervention Period: 2010-2016
 
@@ -164,10 +166,6 @@ class: center, middle, inverse
     - Change in obesity prevalence from post- to pre-intervention measured at census tracts
 
 <div class="wic-logo-right"></div>
-.footnote[
-[1] Early Childhood Obesity Systems Science (ECOSyS) study funded by NIH
-[R01 HD072296](https://grantome.com/grant/NIH/R01-HD072296-01A1)
-]
 ???
 - In 2018 WIC served approximately half of all children under age 5 in Los Angeles County
 ---
@@ -177,10 +175,11 @@ class: center, middle, inverse
 .pull-left[
 .small[
 - Source:
-    - WIC administrative data<sup>1</sup>
+    - WIC administrative data
+        - Part of the [WIC Data Mining Project](https://lawicdata.org)
     - Pulled from 2007-2016
 - Quantification:
-    - Aggregated obesity prevalence at census tracts
+    - Obesity prevalence at census tracts
     - Include only census tracts with at least 30 WIC children for all years
         - Total of 1079 included
     - Pre-intervention=2007-2009
@@ -194,9 +193,6 @@ class: center, middle, inverse
 ```{r analysis_units, echo=FALSE, out.width="95%", fig.align="center"}
 knitr::include_graphics("times_ct_wic.png")
 ```
-]
-.footnote[
-[1] Part of the [WIC Data Mining Project](https://lawicdata.org)
 ]
 ---
 
@@ -223,21 +219,27 @@ knitr::include_graphics("all_lac_wic_site.png")
 ---
 # Intervention Strategies
 
-- Classified strategies into one of 9 categories
-    - Grouped as **micro** (targeted individuals) or **macro** (global population)
+- Classified interventions into 9 potential strategies
+    - Grouped as **micro** (targeted individuals) or **macro** (general population)
 
-| **\#** |          **Name**          | **Group** |  n (%)   |
-|:------:|:--------------------------:|:---------:|:--------:|
-|   1    |    Government Policies     |   Macro   |  1 (3%)  |
-|   2    |   Institutional Polices    |   Macro   | 4 (12%)  |
-|   3    | Infrastructure Investments |   Macro   |  3 (9%)  |
-|   4    |     Business Practices     |   Macro   | 4 (12%)  |
-|   5    |      Group Education       |   Micro   | 21 (66%) |
-|   6    |         Counseling         |   Micro   | 14 (44%) |
-|   7    |    Health Communication    |   Micro   | 17 (53%) |
-|   8    |      Home Visitation       |   Micro   | 8 (25%)  |
-|   9    |   Screening and Referral   |   Micro   | 14 (44%) |
-
+```{r strat_tbl, echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(kableExtra)
+strat_num <- seq_len(9)
+strat_name <- c("Government Policies", "Institutional Polices",
+                "Infrastructure Investments", "Business Practices",
+                "Group Education", "Counseling", "Health Communication",
+                "Home Visitation", "Screening and Referral")
+strat_group <- rep(c("Macro", "Micro"), c(4, 5))
+strat_freq <- c("1 (3%)", "4 (12%)", "3 (9%)", "4 (12%)", "21 (66%)",
+                "14 (44%)", "17 (53%)", "8 (25%)", "14 (44%)")
+strat_cols <- c("#", "Name", "Group", "n (%)")
+strat_df <- data.frame(strat_num, strat_name, strat_group, strat_freq)
+kableExtra::kbl(strat_df, format = "html", col.names=strat_cols) %>%
+  kableExtra::row_spec(0, color = "#f3f6f6", background = "#4f86a7", bold = TRUE) %>%
+  kableExtra::row_spec(1:4, color = "#40514e", background = "#f3f6f6") %>%
+  kableExtra::row_spec(5:9, color = "#40514e", background = "#D3D7DE")
+```
 ???
 - Micro strategies were more frequently used than macro
 - Program could use multiple strategies
@@ -276,14 +278,14 @@ knitr::include_graphics("dose_constr_overview_v2.png")
 .panel[.panel-name[Description]
 - Inherent geographic misalignment
     - Exposure data on intervention programs at **clinic locations**
-    - Outcome data on obesity rates at *census tracts*
+    - Outcome data on obesity rates at **census tracts**
 - Construct mapping using catchment areas
 - Catchment area construction:
     1. Based on client participation patterns of attendance at each clinic
-    1. Form a circle with radius such that X% of clients attend the clinic within the circle
+    1. Form a circle encompassing X% of clients who attend the clinic
         - Macro strategies: 80%
         - Micro strategies: 50%
-    1. Census tracts that overlap circle receive program macro and micro dose
+    1. Census tracts that overlap catchment area receive program IDI
 ]
 .panel[.panel-name[Comparison]
 .pull-left[
@@ -323,7 +325,8 @@ class: center, middle, inverse
 # Notation
 
 - $Y$: outcome of interest
-- $\mathbf{D}$: multivariate exposure of dimension $m$<sup>1</sup>
+- $\mathbf{D}$: multivariate exposure of dimension $m$
+    - In simulation study and application we fix $m=2$, i.e., bivariate exposure
 - $\mathcal{C}=\{\mathbf{C}_{1}, \dots, \mathbf{C}_{m}\}$: set of random variables of
 length $m$
     - Each $\mathbf{C}_{j}$ for $j=1,\dots,m$, is a $p_{j}$ vector of baseline
@@ -336,12 +339,6 @@ vector $\mathbf{d}=(d_{1},\dots,d_{m})$
 
 - Observed data
     - $(Y_{i}, D_{i1},\dots,D_{im}, C_{i11}, \dots, C_{i1p_{1}}, \dots, C_{im1}, \dots, C_{imp_{m}})$
-
-
-.footnote[
-[1] In simulation and application we fix *m*=2 for bivariate exposure
-]
-
 ---
 # Identifying Assumptions
 .panelset[
@@ -445,14 +442,14 @@ w=\frac{f(\mathbf{D})}{f(\mathbf{D}|\mathbf{C}_{1},\dots,\mathbf{C}_{m})},
 ---
 class: center, middle, inverse
 
-# Simulation
+# Simulation Study
 ---
 # Design
 - Sample size : $n=200$
 
 - Repetitions: $B=1000$
 
-- Compare mvGPS to other univariate<sup>1</sup> alternative methods
+- Compare mvGPS to other univariate alternative methods
     - Covariate balancing generalized propensity score, CBGPS, `r Citep(myBib,"fong2018")`
     - Entropy balancing `r Citep(myBib,"tbbicke2020entropy")`
     - Generalized linear propensity score, PS
@@ -463,10 +460,6 @@ class: center, middle, inverse
 
 - Effect of trimming weights `r Citep(myBib, "kang2007demystifying")`
     - None vs. 99th quantile vs 95th quantile
-
-.footnote[
-[1] Estimated twice, once for each exposure
-]
 
 ???
 - Univariate methods may perform well when exposures are highly correlated and have the same confounders
@@ -502,8 +495,8 @@ knitr::include_graphics("DAGS/sim_dags_c_only.jpeg")
 .panel[.panel-name[Setup]
 
 - Three balance metrics were assessed
-    1. Average weighted absolute Pearson exposure-covariate correlation
-    1. Maximum weighted absolute Pearson exposure-covariate correlation
+    1. Average exposure-covariate correlation
+    1. Maximum exposure-covariate correlation
     1. Effective sample size, $(\Sigma_i w_i)^{2}/\Sigma_i w_i^2$
 ]
 .panel[.panel-name[Avg Correlation]
@@ -558,7 +551,7 @@ knitr::include_graphics("sim_images/bias_plot.jpeg")
 
 - Multivariate methods are critical for achieving proper balance across multiple exposures
     - Protects against any single confounder being strongly imbalanced
-    - Slight penalty of lower average balance in certain Scenarios
+    - Slight penalty of lower average balance in certain scenarios
 - Univariate methods achieved best balance with high overlap of confounders
     - Despite balance, high total bias of treatment effects
 - Using multivariate weights decreased ESS resulting in lower power and higher RMSE
@@ -567,7 +560,7 @@ knitr::include_graphics("sim_images/bias_plot.jpeg")
 ---
 class: center, middle, inverse
 # Application Results
-## Measuring Effect of WIC Intervention
+## Estimating Causal Effect of WIC Intervention
 ---
 # Potential Confounders
 .small[
@@ -582,11 +575,11 @@ American Community Survey
 
 WIC Admin
 1. Obesity Prevalence
-1. Overweight or Obesity Prevalence
+1. Overweight Prevalence
 
-NETS
-1. Healthy Outlets per sq. mile
-1. Unhealthy Outlets per sq. mile
+NETS (National Establishment Time-Series)
+1. Healthy Food Outlets per sq. mile
+1. Unhealthy Food Outlets per sq. mile
 ]
 ---
 # Covariate Balance Total
@@ -620,7 +613,7 @@ NETS
 - Significant imbalance prior to weighting
     - mvGPS had greater reduction in imbalance than univariate methods
 
-- ESS for all methods including mvGPS are reduced but power is still reasonable high
+- ESS for all methods are reduced but power is still reasonably high
 
 **Dose-Response**
 
@@ -644,7 +637,7 @@ width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0">
 - Adapted for confounding sets and/or correlation of exposures
 - Visualized and interpreted effect of two continuous interventions with dose-response surface
 - Defined high dimensional positivity space with convex hull
-- [mvGPS](https://cran.r-project.org/package=mvGPS) package available now on CRAN
+- [mvGPS](https://cran.r-project.org/package=mvGPS) R package available now on CRAN
 
 ### Limitations
 - Multivariate normal parametric distribution
@@ -655,16 +648,16 @@ width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0">
 
 ---
 # References I
-.scriptsize[
+.tiny[
 ```{r, results = "asis", echo=FALSE}
-PrintBibliography(myBib, start = 1, end = 9)
+PrintBibliography(myBib, start = 1, end = 11)
 ```
 ]
 ---
 # References II
-.scriptsize[
+.tiny[
 ```{r, results = "asis", echo=FALSE}
-PrintBibliography(myBib, start = 10)
+PrintBibliography(myBib, start = 12)
 ```
 ]
 ---
