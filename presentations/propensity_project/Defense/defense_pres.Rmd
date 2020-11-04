@@ -70,10 +70,9 @@ class: center, middle, inverse
 ]
 ]
 .pull-right[
-<iframe width="560" height="315"
-src="https://streamable.com/m/julio-urias-guides-l-a-to-ws-win"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write;
-encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<video width="560" height="315" controls>
+    <source src="https://sporty-clips.mlb.com/8b0a7a89-c0af-40a7-aa57-032817d03177.mp4" type="video/mp4">
+</video>
 ]
 ---
 # Background
