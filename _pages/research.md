@@ -11,6 +11,12 @@ permalink: /research/
 - Longitudinal Methods
 - Maximum Likelihood Estimation with Censored Data
 
+## Presentations
+
+- [Dissertation Defense](../presentations/propensity_project/Defense/defense_pres.html){:target="_blank"}
+  - slides covering the development and implementation of the multivariate generalized propensity score
+
+
 ## Original R Packages
 
 [mvGPS](https://github.com/williazo/mvGPS)

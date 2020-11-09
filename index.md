@@ -14,6 +14,7 @@ This website contains information about my personal, professional and academic l
 
 + Discover more about my personal life in the [About Me](aboutme) section such as some of my favorite hobbies and recent travels
 + Learn about my current research, software development, and publications that I have worked on under the [Research/Software/Publications](research) tab
+  + Note: my dissertation defense slides are available [here](presentations/propensity_project/Defense/defense_pres.html){:target="_blank"}
 + For a detailed history of my academic and job experience see my curriculum vitae at [CV](cv)
 + Alternatively for an abridged version with only the most recent accomplishments see my [Resume](resume)
 + Discover my opinions and experiences on topics such as programming, and climbing in my [Blog Posts](year-archive)
