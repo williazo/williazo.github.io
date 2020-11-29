@@ -9,21 +9,17 @@ permalink: /aboutme/
 - Recreational softball player
 - Trying new recipes
 
-### Travels
-
-#### Recent Conferences/Academic Trips
+### Recent Conferences/Academic Trips
 
 - San Diego, California (January 2020, [ICHPS Conference](https://ww2.amstat.org/meetings/ichps/2020/))
 - Denver, Colorado (July 2019, [JSM Conference](https://ww2.amstat.org/meetings/jsm/2019/))
 - Portland, Oregon (June 2019, [WNAR Conference](http://www.wnar.org/Past-Meetings))
 - Philadelphia, Pennsylvania (November 2019, Statistical Horizons Short Course: "Matching and Weighting for Causal Inference with R")
 
-#### Upcoming Trips
+### Personal
 
-- ***NO TRAVEL PLANS DUE TO COVID-19***
-
-### Personal Trips
-
+- 2020 Dodgers World Series Trophy (November, 2020)
+![2020 WS Trophy](/assets/images/jw_2020_ws_trophy.jpg)
 - Vancouver/Victoria (September, 2019)
 ![Butchart Gardens](/assets/images/butchart_garden.jpg)
 *Butchart Garden*
