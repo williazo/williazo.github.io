@@ -8,7 +8,7 @@ header:
   caption: "Quail Springs, Joshua Tree National Park <br> Date: 1/17/20"
   image_description: "Quail Springs"
 ---
-I am currently a 5th year Ph.D. candidate at the University of California, Los Angeles (UCLA) in the [Department of Biostatistics](https://www.biostat.ucla.edu). Currently I am employed with the [Los Angeles Dodgers](https://www.mlb.com/dodgers/) as a Quantitative Analyst. I have a wide variety of experiences interning in industry along with extensive research work within the field of Autism Spectrum Disorder.
+Recent graduate from the University of California, Los Angeles (UCLA) with a Ph.D. in the [Department of Biostatistics](https://www.biostat.ucla.edu). Currently I am employed with the [Los Angeles Dodgers](https://www.mlb.com/dodgers/) as a Quantitative Analyst. I have a wide variety of experiences interning in industry along with extensive research work within the field of Autism Spectrum Disorder.
 
 This website contains information about my personal, professional and academic life and is organized in the following tabs:
 
