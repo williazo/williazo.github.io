@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: Justin Williams | Personal Website
 email: williazo@ucla.edu
-description: "A personal webpage for displaying information on Justin Williams current Ph.D. candidate in the Department of Biostatistics at UCLA."
+description: "A personal webpage for displaying information on Justin Williams."
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://williazo.github.io"
 repository: "williazo/williazo.github.io"
@@ -32,9 +32,7 @@ markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 author:
   name : "Justin Williams"
   avatar: "/assets/images/personal_photo.jpg"
-  bio: "Ph.D. candidate<br/>
-  UCLA, Department of Biostatistics<br/> <br/>
-  Quantitative Analyst<br/>
+  bio: "Quantitative Analyst<br/>
   Los Angeles Dodgers"
   location: "Los Angeles, CA"
   links:
