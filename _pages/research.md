@@ -20,9 +20,9 @@ permalink: /research/
 
 [mvGPS](https://github.com/williazo/mvGPS)
 [![CRAN
-version](http://www.r-pkg.org/badges/version/mvGPS)](https://cran.r-project.org/package=mvGPS)
+version](https://www.r-pkg.org/badges/version/mvGPS)](https://cran.r-project.org/package=mvGPS)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/grand-total/mvGPS)](https://cran.r-project.org/package=mvGPS)
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/mvGPS)](https://cran.r-project.org/package=mvGPS)
 [![cran
 checks](https://cranchecks.info/badges/worst/mvGPS)](https://cran.r-project.org/web/checks/check_results_mvGPS.html)
 [![Build
@@ -33,9 +33,9 @@ Status](https://travis-ci.org/williazo/mvGPS.svg?branch=master)](https://travis-
 - assess covariate balance, define estimable regions using convex hull, and implement other common univariate methods
 
 [microbiomeDASim](https://github.com/williazo/microbiomeDASim)
-[![Bioc build](http://bioconductor.org/shields/build/release/bioc/microbiomeDASim.svg)](http://bioconductor.org/checkResults/release/bioc-LATEST/microbiomeDASim/)
-[![Bioc time](http://bioconductor.org/shields/years-in-bioc/microbiomeDASim.svg)](https://bioconductor.org/packages/microbiomeDASim)
-[![Bioc downloads](http://bioconductor.org/shields/downloads/release/microbiomeDASim.svg)](http://bioconductor.org/packages/stats/bioc/microbiomeDASim/)
+[![Bioc build](https://bioconductor.org/shields/build/release/bioc/microbiomeDASim.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/microbiomeDASim/)
+[![Bioc time](https://bioconductor.org/shields/years-in-bioc/microbiomeDASim.svg)](https://bioconductor.org/packages/microbiomeDASim)
+[![Bioc downloads](https://bioconductor.org/shields/downloads/release/microbiomeDASim.svg)](https://bioconductor.org/packages/stats/bioc/microbiomeDASim/)
 
 - co-authored with Héctor Corrada Bravo, Jennifer Tom, and Joseph Paulson while working at Genentech, Inc.
 - simulate longitudinal differential abundance for microbiome data
@@ -44,9 +44,9 @@ Status](https://travis-ci.org/williazo/mvGPS.svg?branch=master)](https://travis-
 [tcensReg](https://github.com/williazo/tcensReg)
 <!-- badges: start -->
 [![CRAN
-version](http://www.r-pkg.org/badges/version/tcensReg)](http://www.r-pkg.org/pkg/tcensReg)
+version](https://www.r-pkg.org/badges/version/tcensReg)](https://www.r-pkg.org/pkg/tcensReg)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/grand-total/tcensReg)](http://www.r-pkg.org/pkg/tcensReg)
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/tcensReg)](https://www.r-pkg.org/pkg/tcensReg)
 [![cran
 checks](https://cranchecks.info/badges/worst/tcensReg)](https://cranchecks.info/pkgs/tcensReg)
 [![Build
