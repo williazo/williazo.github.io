@@ -19,6 +19,7 @@ jobs:
         GTAG_ANALYTICS: ${{ secrets.GTAG_ANALYTICS }}
       run: |
         docker run \
+        -e GTAG_ANALYTICS=$GTAG_ANALYTICS \
         -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
         jekyll/builder:latest /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --future"
 
