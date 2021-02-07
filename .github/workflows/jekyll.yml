@@ -2,19 +2,20 @@ name: Jekyll site CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - devbranch
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Build the site in the jekyll/builder container
-      env: # Or as an environment variable
+      env:
         GTAG_ANALYTICS: ${{ secrets.GTAG_ANALYTICS }}
       run: |
         docker run \
