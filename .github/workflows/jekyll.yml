@@ -14,12 +14,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the site in the jekyll/builder container
+      env: # Or as an environment variable
+        GTAG_ANALYTICS: ${{ secrets.GTAG_ANALYTICS }}
       run: |
         docker run \
         -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
         jekyll/builder:latest /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --future"
 
-  
+
   # jekyll:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -38,4 +40,3 @@ jobs:
   #   - uses:  helaili/jekyll-action@2.0.3
   #     env:
   #       JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
-    
