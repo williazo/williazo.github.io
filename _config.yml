@@ -100,7 +100,7 @@ timezone: America/Los_Angeles # https://en.wikipedia.org/wiki/List_of_tz_databas
 analytics:
   provider: "google-gtag"
   google:
-    tracking_id: <%= ENV['GTAG_ANALYTICS'] %>
+    tracking_id: $GTAG_ANALYTICS
     anonymize_ip: false # default
 
 # Archives
