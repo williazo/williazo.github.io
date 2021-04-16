@@ -18,6 +18,6 @@ This website contains information about my personal, professional and academic l
 + For a detailed history of my academic and job experience see my curriculum vitae at [CV](cv)
 + Alternatively for an abridged version with only the most recent accomplishments see my [Resume](resume)
 + Discover my opinions and experiences on topics such as programming, and climbing in my [Blog Posts](year-archive)
-  + My latest post is available [here](_posts/2020-07-13-github-welcome.md)
+  + My latest post is available [here](_posts/2021-04-16-query-historical-weather-w-api.md)
 
 For any questions or to contact please reach out via Email, GitHub or LinkedIn with links to the left.
