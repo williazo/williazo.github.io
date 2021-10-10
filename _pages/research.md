@@ -69,6 +69,8 @@ Status](https://travis-ci.org/williazo/tcensReg.svg?branch=master)](https://trav
 
 ## Recent Publications
 
+1. Sturm, A., **Williams, J.**, and Kasari, C. (2021). Who gains and who loses? Sociodemographic disparities in access to special education services among autistic students. Autism Research, 14:1621–1632. doi:[10.1002/aur.2517](https://doi.org/10.1002/aur.2517).
+
 1. Melamed, K.H, **Williams, J.**, Wang, X., Hu S., Nguyen C., Cui, J., & Deng, J.C. Development of secondary bacterial pneumonia in adults presenting with influenza versus noninfluenza viral res-piratory infection. Therapeutic Advances in Respiratory Diseases, 14. doi:[10.117/1753466620963026](https://dx.doi.org/10.1177%2F1753466620963026).
 
 1. **Williams, J.R.**, and Crespi, C.M. (2020). Causal inference for multiple continuous exposures via the multivariate generalized propensity score. arXiv preprint. [arXiv:2008.13767](https://arxiv.org/abs/2008.13767).
