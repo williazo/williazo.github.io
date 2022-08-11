@@ -69,9 +69,15 @@ Status](https://travis-ci.org/williazo/tcensReg.svg?branch=master)](https://trav
 
 ## Recent Publications
 
+Full list of publications available at <https://orcid.org/0000-0002-5045-2764> <i class="fa-brands fa-orcid"></i>
+
+1. Panganiban, J., Shire, S, **Williams, J.**, and Kasari, C. (2022). Supporting peer engagement for low-income preschool students with autism spectrum disorder during academic instruction: A pilot randomized trial. Autism. doi:[10.1177/13623613221085339](https://doi.org/10.1177%2F13623613221085339).
+
+1. Schlink, A., **Williams, J.**, Pizzano, M., Gulsrud, A, and Kasari, C. (2021). Parenting stress in caregiver-mediated interventions for toddlers with autism: An application of quantile regression mixed models. Autism Research, 15(2), 353-365. doi:[10.1002/aur.2637](https://doi.org/10.1002/aur.2637).
+
 1. Sturm, A., **Williams, J.**, and Kasari, C. (2021). Who gains and who loses? Sociodemographic disparities in access to special education services among autistic students. Autism Research, 14:1621–1632. doi:[10.1002/aur.2517](https://doi.org/10.1002/aur.2517).
 
-1. Melamed, K.H, **Williams, J.**, Wang, X., Hu S., Nguyen C., Cui, J., & Deng, J.C. Development of secondary bacterial pneumonia in adults presenting with influenza versus noninfluenza viral res-piratory infection. Therapeutic Advances in Respiratory Diseases, 14. doi:[10.117/1753466620963026](https://dx.doi.org/10.1177%2F1753466620963026).
+1. Melamed, K.H, **Williams, J.**, Wang, X., Hu S., Nguyen C., Cui, J., & Deng, J.C (2020). Development of secondary bacterial pneumonia in adults presenting with influenza versus noninfluenza viral res-piratory infection. Therapeutic Advances in Respiratory Diseases, 14. doi:[10.117/1753466620963026](https://dx.doi.org/10.1177%2F1753466620963026).
 
 1. **Williams, J.R.**, and Crespi, C.M. (2020). Causal inference for multiple continuous exposures via the multivariate generalized propensity score. arXiv preprint. [arXiv:2008.13767](https://arxiv.org/abs/2008.13767).
 
